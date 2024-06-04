@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Reaction Bot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+
+            fetch('/handle_request', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                if (data.message === "Success") {
+                    form.reset();
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Facebook Reaction Bot</h1>
+        <form onsubmit="handleFormSubmit(event)">
+            <h2>Add Access Token and Send Reaction</h2>
+            <input type="text" name="access_token" placeholder="Enter Access Token" required>
+            <input type="text" name="link" placeholder="Enter Facebook Post Link" required>
+            <select name="reaction_type" required>
+                <option value="LIKE">Like</option>
+                <option value="LOVE">Heart</option>
+                <option value="HAHA">Haha</option>
+                <option value="WOW">Wow</option>
+                <option value="SAD">Sad</option>
+                <option value="ANGRY">Angry</option>
+            </select>
+            <button type="submit">Submit</button>
+        </form>
+        <div class="credits">
+            Developer: <a href="https://github.com/your-profile" target="_blank">Jovan/Sushi</a>
+        </div>
+    </div>
+</body>
+</html>
