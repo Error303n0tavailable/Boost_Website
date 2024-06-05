@@ -1,2 +1,3 @@
-pip intall flask
-pip install requests
+pip install Flask==2.0.2
+pip install requests==2.26.0
+
